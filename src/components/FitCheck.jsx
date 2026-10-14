@@ -9,11 +9,11 @@ const looks = [
   { name: 'Garden room', image: 'kitchen.jpg', tone: 'rgba(79, 111, 81, .34)', label: 'Sage + aged brass' }
 ];
 
-export default function FitCheck() {
+export default function FitCheck({ lookName, onSelectLook, onSelectProject }) {
   const videoRef = useRef(null);
   const streamRef = useRef(null);
   const requestRef = useRef(0);
-  const [activeLook, setActiveLook] = useState(looks[0]);
+  const activeLook = looks.find(look => look.name === lookName) ?? looks[0];
   const [cameraState, setCameraState] = useState('idle');
 
   useEffect(() => () => { requestRef.current += 1; streamRef.current?.getTracks().forEach((track) => track.stop()); }, []);
@@ -59,21 +59,22 @@ export default function FitCheck() {
         <p>Try four material palettes on the sample room, or open your camera for a live colour-tint preview. This is a mood preview, not furniture placement.</p>
         <div className="fit-check-actions">
           {cameraState === 'ready' || cameraState === 'loading' ? <button className="btn-ghost" type="button" onClick={stopCamera}>Close camera</button> : <button className="btn-coral" type="button" onClick={startCamera}><CameraIcon />Open camera</button>}
-          <span className="camera-note">Camera stays on your device</span>
+          <span className="camera-note">Private preview · no uploads</span>
         </div>
         {(cameraState === 'denied' || cameraState === 'unsupported') && <p className="camera-status" role="status">Camera access is unavailable here. You can still browse the design directions below.</p>}
       </div>
       <div className={`camera-stage camera-stage--${cameraState}`}>
         <video ref={videoRef} className="camera-feed" muted playsInline aria-label="Live camera preview" />
-        {cameraState !== 'ready' && <div className="camera-placeholder"><CameraIcon /><span>{cameraState === 'loading' ? 'Preparing your camera...' : 'Your room, your next direction'}</span></div>}
+        {cameraState === 'loading' && <div className="camera-placeholder"><CameraIcon /><span>{cameraState === 'loading' ? 'Preparing your camera...' : 'Your room, your next direction'}</span></div>}
         <div className="camera-overlay" style={{ background: cameraState === 'ready' ? activeLook.tone : `linear-gradient(135deg, ${activeLook.tone}, transparent 70%), url(${imagePath(activeLook.image)}) center / cover` }} aria-hidden="true" />
         <div className="camera-stage-label"><span>Preview</span><strong>{activeLook.label}</strong></div>
       </div>
     </div>
     <div className="look-picker" aria-label="Choose a design direction">
-      {looks.map((look) => <button className={activeLook.name === look.name ? 'look-option active' : 'look-option'} type="button" aria-pressed={activeLook.name === look.name} key={look.name} onClick={() => setActiveLook(look)}>
+      {looks.map((look) => <button className={activeLook.name === look.name ? 'look-option active' : 'look-option'} type="button" aria-pressed={activeLook.name === look.name} key={look.name} onClick={() => onSelectLook(look.name)}>
         <img src={imagePath(look.image)} alt="" /><span>{look.name}</span>
       </button>)}
     </div>
+    <div className="look-summary"><p><strong>{activeLook.name}</strong> · {activeLook.label}</p><a href="#consult" className="btn-light" onClick={() => onSelectProject(`${activeLook.name} style, ${activeLook.label}`)}>Use this look in my brief <span aria-hidden="true">↗</span></a></div>
   </section>;
 }

@@ -1,4 +1,0 @@
-import { useRef } from 'react';
-import { ArrowIcon } from './Icon';
-import { imagePath, rooms } from '../data/projects';
-export default function Rooms() { const scrollRef = useRef(null); return <section className="rooms-section" id="rooms"><div className="rooms-viewport"><div className="rooms-scroll" ref={scrollRef}>{rooms.map((room) => <div className="room-item" key={room.name}><div className="room-photo"><img src={imagePath(room.image)} alt={room.alt} /></div><div className="room-caption">{room.name}</div></div>)}</div><button className="rooms-next" type="button" aria-label="Next" onClick={() => scrollRef.current?.scrollBy({ left: 220, behavior: 'smooth' })}><ArrowIcon /></button></div></section>; }

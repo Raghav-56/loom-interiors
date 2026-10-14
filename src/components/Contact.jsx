@@ -1,8 +1,10 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-export default function Contact() {
+export default function Contact({ selection }) {
   const [result, setResult] = useState(null);
   const formRef = useRef(null);
+  const [projectType, setProjectType] = useState('');
+  useEffect(() => { if (selection) { setProjectType(selection.text); setResult(null); } }, [selection]);
   function submit(event) {
     event.preventDefault();
     const form = event.currentTarget;
@@ -17,6 +19,12 @@ export default function Contact() {
       form.elements.type.reportValidity();
       return;
     }
+    const digits = data.phone.replace(/\D/g, '');
+    if (digits.length < 10 || digits.length > 15) {
+      form.elements.phone.setCustomValidity('Enter a phone number with 10 to 15 digits.');
+      form.elements.phone.reportValidity();
+      return;
+    }
     setResult(data);
   }
   function download() {
@@ -25,12 +33,12 @@ export default function Contact() {
     const anchor = document.createElement('a'); anchor.href = url; anchor.download = 'loom-consultation-brief.txt'; anchor.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
-  return <section id="consult" className="consult"><div className="consult-grid"><div><div className="kicker consult-kicker">Get started</div><h2>Ready to create a space that feels like you?</h2><p>Tell us about your room, your location, and the kind of change you have in mind.</p><p className="demo-note">This is a frontend demonstration. Your details stay in this page and are not sent to a studio. Use sample details during your presentation.</p></div><form ref={formRef} className="consult-form" onSubmit={submit} onInput={(event) => { event.target.setCustomValidity?.(''); setResult(null); }}>
+  return <section id="consult" className="consult"><div className="consult-grid"><div><div className="kicker consult-kicker">Get started</div><h2>Ready to create a space that feels like you?</h2><p>Tell us about your room, your location, and the kind of change you have in mind.</p><p className="demo-note">Demo mode: create a brief to download. Your details stay on this page; no request is sent to a studio.</p></div><form ref={formRef} className="consult-form" onSubmit={submit} onInput={(event) => { event.target.setCustomValidity?.(''); setResult(null); }}>
     <div className="field"><label htmlFor="name">Full name</label><input name="name" id="name" autoComplete="name" required minLength={2} maxLength={80} placeholder="Your full name" /></div>
     <div className="field"><label htmlFor="email">Email address</label><input name="email" id="email" type="email" autoComplete="email" required maxLength={120} placeholder="you@example.com" /></div>
     <div className="field"><label htmlFor="phone">Phone number</label><input name="phone" id="phone" type="tel" autoComplete="tel" required pattern="[+]?[0-9 ]{10,18}" title="Enter 10 to 18 characters using digits or spaces, with an optional leading plus." placeholder="+91 98765 43210" /></div>
-    <div className="field"><label htmlFor="type">Location and project type</label><input name="type" id="type" required minLength={3} maxLength={200} placeholder="Chandigarh, bedroom renovation" /></div>
+    <div className="field"><label htmlFor="type">Location and project type</label><input name="type" id="type" value={projectType} onChange={event => setProjectType(event.target.value)} required minLength={3} maxLength={200} placeholder="Chandigarh, bedroom renovation" /></div>
     <button className="btn btn-dark" type="submit">Create consultation brief</button>
-    {result && <div className="form-result" role="status"><strong>Your demo brief is ready, {result.name.trim()}.</strong><p>No request has been sent. Download the brief to keep a copy.</p><button type="button" className="btn-ghost" onClick={download}>Download brief</button><button type="button" className="btn-ghost" onClick={() => { formRef.current.reset(); setResult(null); }}>Clear details</button></div>}
+    {result && <div className="form-result" role="status"><strong>Your demo brief is ready, {result.name.trim()}.</strong><p>No request has been sent. Download the brief to keep a copy.</p><button type="button" className="btn-ghost" onClick={download}>Download brief</button><button type="button" className="btn-ghost" onClick={() => { formRef.current.reset(); setProjectType(''); setResult(null); }}>Clear details</button></div>}
   </form></div></section>;
 }

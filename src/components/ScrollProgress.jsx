@@ -24,7 +24,7 @@ export default function ScrollProgress() {
 
   return <div className="scroll-progress" role="progressbar" aria-label="Page progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow={progress}>
     <span className="scroll-progress-label">{progress}%</span>
-    <span className="scroll-progress-track"><span className="scroll-progress-fill" style={{ height: `${progress}%` }} /></span>
+    <span className="scroll-progress-track"><span className="scroll-progress-fill" style={{ width: `${progress}%` }} /></span>
     <span className="scroll-progress-end">END</span>
   </div>;
 }
