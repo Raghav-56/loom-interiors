@@ -2,7 +2,7 @@
 
 The page now follows one path: explore project photographs, choose a room or style, and prepare a consultation brief.
 
-The palette uses spruce green, mineral grey, antique brass, and an off-white background. Cormorant Garamond carries headings and Manrope carries controls and body text. Large room photographs remain the main visual element.
+The palette uses the preferred coral and blue accents, slate text, and an off-white background. Cormorant Garamond carries headings and Manrope carries controls and body text. Large room photographs remain the main visual element.
 
 The previous page repeated studio statistics and room galleries, moved a service strip continuously, and displayed inactive designer controls. Those sections were removed. Navigation now stays in one position as you scroll, and project, service, style, and chat choices have visible results in the brief.
 
