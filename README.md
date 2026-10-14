@@ -4,6 +4,8 @@ A responsive React interior-design website prepared from a friend's supplied ind
 
 [Open the public demo](https://raghav-56.github.io/loom-interiors/) · [Presentation guide](docs/presentation-guide.md) · [Report alignment](docs/report-alignment.md)
 
+![Loom Interiors desktop preview](docs/screenshots/desktop.png)
+
 ## Run locally
 
 Install Node.js 22.12 or newer. In this folder, run:
@@ -18,6 +20,7 @@ Open the localhost URL printed by Vite. Camera access requires localhost or HTTP
 ## Working interactions
 
 - Responsive navigation and section links.
+- Room, project, style, and chat selections prefill the consultation brief.
 - Four sample project cards with accessible detail dialogs.
 - Four selectable style directions and a live camera colour-tint preview.
 - Camera denial fallback and explicit track cleanup when closing the camera.
@@ -32,8 +35,7 @@ Open the localhost URL printed by Vite. Camera access requires localhost or HTTP
 src/pages/Home.jsx             Page composition
 src/components/                React sections and controls
 src/data/projects.js           Sample data and bundled image paths
-src/improvements.css           Accessibility and interaction fixes
-css/style.css                  Retained original design
+css/style.css                  Studio design and responsive styles
 assets/images/                 Optimized supplied photographs
 tests/site.spec.js            Browser interaction checks
 docs/                         Presentation and project notes

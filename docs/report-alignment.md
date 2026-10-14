@@ -5,12 +5,12 @@ The report is background material. It describes the original project and does no
 | Report feature | Current implementation | Demonstration note |
 | --- | --- | --- |
 | Offer bar and responsive header | `Navbar.jsx` | The banner now identifies the educational demo instead of advertising an unverified discount. |
-| Hero and studio sections | `Hero.jsx`, `About.jsx` | Original design retained. Business statistics replaced by sample-project facts. |
+| Hero and studio sections | `Hero.jsx`, `About.jsx` | Studio design refined. Duplicate statistics removed; project facts remain in the educational notes. |
 | Reusable React components | `src/components/` | React entry point and Vite build remain. |
 | Scroll progress | `ScrollProgress.jsx` | Passive listeners and animation-frame scheduling. |
-| Draggable and closable chat | `ChatWidget.jsx` | Working quick replies, drag/click separation, Escape closing, removable control. |
+| Draggable and closable chat | `ChatWidget.jsx` | Working quick replies, drag/click separation, Escape closing, removable control, and reopening from project notes. |
 | Camera and four style directions | `FitCheck.jsx` | Permission fallback, colour tint, stream cleanup, and cancelled-request protection. |
-| Consultation form | `Contact.jsx` | Validation, visible confirmation, download, and clear action. No server submission. |
+| Consultation form | `Contact.jsx` | Room, project, style, and chat choices prefill the brief. Validation, confirmation, download, and clear actions work without server submission. |
 | Image optimization | `assets/images/` | Supplied images resized and JPEG-compressed for this version. No claim of new Photoshop work. |
 | Project gallery | `Portfolio.jsx` | Sample details open in a modal instead of sending every click to the form. |
 | Automated tests listed as future scope | `tests/site.spec.js` | Added in this preparation, not evidence of testing during the original internship. |

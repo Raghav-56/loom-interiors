@@ -64,6 +64,7 @@ test('Chat replies work and dragging does not toggle the panel', async ({ page }
   await expect(fab).toHaveAttribute('aria-expanded', 'true');
   await page.getByRole('link', { name: /^Continue to consultation/ }).click();
   await expect(page.locator('#name')).toBeInViewport();
+  await expect(page.locator('#type')).toHaveValue('Kitchen design');
   await expect(page.locator('.chat-widget')).toHaveClass(/closed/);
 });
 
@@ -106,4 +107,19 @@ test('All rendered images load and mobile menu follows a click-through path', as
   await expect(page.getByRole('button', { name: 'Open menu' })).toHaveAttribute('aria-expanded', 'false');
   await page.evaluate(async () => Promise.all([...document.images].map(img => img.decode())));
   expect(await page.locator('img').evaluateAll(imgs => imgs.every(img => img.naturalWidth > 0))).toBe(true);
+});
+
+
+test('Room and idea selections carry through to the brief and the helper can reopen', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('#services').getByRole('link', { name: /Bedroom/ }).click();
+  await expect(page.locator('#type')).toHaveValue('Bedroom design');
+  await page.locator('#ideas .idea-card').nth(1).getByRole('link', { name: /Try this direction/ }).click();
+  await expect(page.getByRole('button', { name: 'Cedar quiet' })).toHaveAttribute('aria-pressed', 'true');
+  await page.getByRole('link', { name: /Use this look in my brief/ }).click();
+  await expect(page.locator('#type')).toHaveValue('Cedar quiet style, Cedar + clay');
+  await page.getByRole('button', { name: 'Remove chat widget' }).click();
+  await expect(page.locator('.chat-widget')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Reopen the design helper' }).click();
+  await expect(page.getByRole('button', { name: 'Open chat', exact: true })).toBeVisible();
 });

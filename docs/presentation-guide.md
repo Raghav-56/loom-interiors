@@ -19,9 +19,9 @@ Show the hero and navigation. Resize the browser or use mobile emulation to show
 
 Open a project from the gallery. The browser's native `dialog` element supplies modal behavior and keyboard focus management. Escape closes it and returns focus to the opening button.
 
-Scroll to "See it in your space". Select Soft mineral, Coastal ink, Cedar quiet, and Garden room. Explain that React state controls the selected palette. Open the camera only if the audience and room setting allow it. The preview stays in the browser and uses `getUserMedia`. Close it to show that the video tracks stop. This is a colour-tint preview, not AR.
+Scroll to "See it in your space". Select Soft mineral, Coastal ink, Cedar quiet, and Garden room. Use the selected look in your brief. Explain that React state controls the selected palette. Open the camera only if the audience and room setting allow it. The preview stays in the browser and uses `getUserMedia`. Close it to show that the video tracks stop. This is a colour-tint preview, not AR.
 
-Open the chat. Select Kitchen to show a fixed reply. Close the panel, drag the button, and open it again. Pointer Events support mouse and touch. A movement threshold distinguishes dragging from clicking. The chat does not use AI or a network service.
+Open the chat. Select Kitchen to show a fixed reply. Continue to consultation to see the project field prefilled. Close the panel, drag the button, and open it again. Pointer Events support mouse and touch. A movement threshold distinguishes dragging from clicking. The chat does not use AI or a network service.
 
 Show the scroll percentage. Explain that a passive scroll listener schedules an update through `requestAnimationFrame` and computes the percentage from scroll position and total scrollable height.
 
@@ -31,7 +31,7 @@ Finish with what you would add next: a secure backend for enquiries, an admin da
 
 ## Explain the code
 
-`src/main.jsx` mounts React. `App.jsx` loads `Home.jsx`. `Home.jsx` assembles the sections, while each interactive component owns its local state and effect cleanup.
+`src/main.jsx` mounts React. `App.jsx` loads `Home.jsx`. `Home.jsx` assembles the sections, while each interactive component owns its local state and effect cleanup. Home shares the chosen style and consultation selection between sections.
 
 `FitCheck.jsx` stores the selected look and camera state. Refs hold the video element and media stream. A request counter prevents a cancelled permission request from turning the camera back on.
 
